@@ -1,0 +1,22 @@
+extends CharacterBody2D
+
+@export var move_speed: float = 240.0
+
+func _physics_process(_delta: float) -> void:
+	var input_dir := Vector2(
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	)
+	velocity = input_dir.normalized() * move_speed
+	move_and_slide()
+
+func requested_shot_type() -> String:
+	if Input.is_action_pressed("hit_topspin"):
+		return "topspin"
+	if Input.is_action_pressed("hit_slice"):
+		return "slice"
+	if Input.is_action_pressed("hit_lob"):
+		return "lob"
+	if Input.is_action_pressed("hit_flat"):
+		return "flat"
+	return ""
