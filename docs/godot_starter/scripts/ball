@@ -1,0 +1,73 @@
+extends CharacterBody2D
+
+@export var base_speed: float = 290.0
+@export var hit_radius: float = 42.0
+@export var player_path: NodePath
+@export var cpu_path: NodePath
+
+signal point_scored(side: String)
+
+var _player: Node2D
+var _cpu: Node2D
+
+func _ready() -> void:
+	_player = get_node_or_null(player_path)
+	_cpu = get_node_or_null(cpu_path)
+	serve_to_cpu()
+
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
+	_try_player_hit()
+	_try_cpu_hit()
+	_check_point_end()
+
+func serve_to_cpu() -> void:
+	global_position = Vector2(640, 360)
+	velocity = Vector2(1, randf_range(-0.3, 0.3)).normalized() * base_speed
+
+func serve_to_player() -> void:
+	global_position = Vector2(640, 360)
+	velocity = Vector2(-1, randf_range(-0.3, 0.3)).normalized() * base_speed
+
+func _try_player_hit() -> void:
+	if _player == null:
+		return
+	if global_position.distance_to(_player.global_position) > hit_radius:
+		return
+
+	var shot := _player.requested_shot_type() if _player.has_method("requested_shot_type") else ""
+	if shot == "":
+		return
+	velocity = _apply_shot(Vector2.RIGHT, shot)
+
+func _try_cpu_hit() -> void:
+	if _cpu == null:
+		return
+	if global_position.distance_to(_cpu.global_position) > hit_radius:
+		return
+	if velocity.x <= 0:
+		return
+
+	var shot := _cpu.choose_shot_type() if _cpu.has_method("choose_shot_type") else "flat"
+	velocity = _apply_shot(Vector2.LEFT, shot)
+
+func _apply_shot(forward: Vector2, shot: String) -> Vector2:
+	match shot:
+		"flat":
+			return (forward + Vector2(0, randf_range(-0.15, 0.15))).normalized() * (base_speed * 1.05)
+		"topspin":
+			return (forward + Vector2(0, -0.28)).normalized() * (base_speed * 0.98)
+		"slice":
+			return (forward + Vector2(0, 0.28)).normalized() * (base_speed * 0.96)
+		"lob":
+			return (forward + Vector2(0, randf_range(-0.55, -0.35))).normalized() * (base_speed * 0.86)
+		_:
+			return forward.normalized() * base_speed
+
+func _check_point_end() -> void:
+	if global_position.x < -40:
+		emit_signal("point_scored", "cpu")
+		serve_to_player()
+	elif global_position.x > 1320:
+		emit_signal("point_scored", "player")
+		serve_to_cpu()
