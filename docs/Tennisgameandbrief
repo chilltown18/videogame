@@ -1,0 +1,169 @@
+# Retro Realism Tennis (Working Title) — One-Page Game Brief
+
+## 1) Core Vision
+**Game fantasy:** realistic tennis decision-making and shot selection, presented with a retro 1990s/8-bit visual and audio style.
+
+**Current goal:** quick prototype (not polished release yet).
+
+**Target match length:** ~3–5 minutes.
+
+## 2) MVP Clarified (What “smallest playable version” means)
+**MVP = the tiniest version that is still fun and complete enough to play repeatedly.**
+For your game, MVP in 1–2 weeks means:
+- 1 player character vs 1 CPU opponent
+- 1 court
+- Basic scoring flow (start match → points/games → winner screen)
+- Serve + rally loop with core shot types
+- Keyboard controls
+- Minimal retro visuals/SFX placeholders
+
+If this works and feels good, you expand from there.
+
+## 3) Platform & Tech Direction
+- **Primary target:** Web + Desktop
+- **Engine choice:** **Godot** (recommended for your experience level and fast prototyping)
+- **Multiplayer plan:** Single-player first; design code so local/online multiplayer can be added later
+
+### When to start using Godot
+Start **immediately** for Milestone 0 (project setup). Do not wait for “final art.”
+Use placeholder sprites and focus first on controls + ball + scoring.
+
+## 4) v1 Scope (Based on Your Answers)
+### In Scope (Prototype v1)
+- Single-player mode
+- Modes: **Exhibition** and simple **Tournament**
+- 2 characters total
+- 1 court
+- 5 difficulty levels with light rubber-band behavior
+- Retro-inspired UI (readable text, simple menus)
+- Energetic chiptune direction with placeholder audio
+
+### Out of Scope (Prototype v1)
+- Full online multiplayer
+- Voice umpire system (future stretch goal)
+- Advanced accessibility assists
+- Large roster/court count
+
+## 5) Gameplay Design
+## Control Philosophy
+- Minimal inputs, but advanced shot outcomes.
+- Movement should feel smooth and responsive (not stiff), while maintaining retro readability.
+
+## Shot System (Requested)
+### Serves
+- Flat serve (middle behavior)
+- Topspin serve (one side behavior)
+- Slice serve (other side behavior)
+
+### Groundstrokes
+- Flat (middle/default)
+- Topspin
+- Slice
+
+### Volleys
+- Flat
+- Topspin
+- Slice
+
+### Baseline Utility
+- Lob available from baseline contexts
+
+## 6) AI & Difficulty
+- **AI style:** fun rallying + occasional outwitting, not perfect robot play
+- **Difficulty count:** 5 levels
+- **Rubber-band:** yes (lightly applied in prototype)
+- **Opponent personality:** yes, distinct tendencies per opponent
+
+## 7) Retro Art/Audio Direction
+### Visual references
+- Mario Tennis feel + classic tennis flash game simplicity
+- Old-school Pokémon color vibes (borrowed style, not strict hardware emulation)
+- GBA-era-ish sprite scale and simple animation counts
+
+### Art constraints (initial)
+- Limited palette per scene (Pokémon-like color restraint)
+- Small player/ball sprites at GBA-like readability scale
+- Modest animation frames (only what is needed for clarity)
+
+### Audio direction
+- Energetic chiptune music
+- Key SFX: serve impact, rally hits, player grunts, crowd cheer
+- Umpire score callouts: future addition
+
+## 8) Production Reality (Simplified)
+You said “just for fun” and “$0 budget,” so this plan assumes:
+- Mostly self-made or free placeholder assets
+- Free/open-source tools
+- Fast iteration over polish
+
+### Asset plan for prototype
+- **Create now:** basic placeholders (player, ball, court markers, UI text)
+- **Source later (optional):** free retro SFX/music packs if needed
+
+## 9) Success Criteria (Your Version)
+The prototype is successful if:
+- You are having fun playing repeated matches
+- Controls feel tight and understandable within ~30 seconds
+- Match flow works end-to-end in ~3–5 minutes
+- Game runs smoothly on your target machine
+
+---
+
+# 2-Week Prototype Build Plan (Godot-First)
+
+## Milestone 0 (Day 1): Godot Setup — Start Here
+- Install Godot (current stable)
+- Create project and scene structure (`Main`, `Court`, `Player`, `Ball`, `UI`)
+- Add keyboard input map (move, hit timing, shot modifiers)
+- Add placeholder sprites/shapes
+
+**Deliverable:** controllable player, visible court, spawned ball.
+
+## Milestone 1 (Days 2–4): Rally Core
+- Ball movement and bounce logic
+- Hit timing windows (early/perfect/late)
+- Flat/topspin/slice variation behaviors
+- Baseline lob input condition
+- Basic CPU return logic
+
+**Deliverable:** playable rallies with shot variety.
+
+## Milestone 2 (Days 5–7): Match Rules
+- Serve state machine (flat/topspin/slice)
+- Point tracking and game progression
+- End-of-match and rematch flow
+- Build first Exhibition mode loop
+
+**Deliverable:** complete 1vCPU exhibition match.
+
+## Milestone 3 (Days 8–10): Difficulty + Personalities
+- Add 5 difficulty levels
+- Add light rubber-band tuning
+- Give opponents distinct tendencies (e.g., safer vs aggressive)
+- Tuning pass for 3–5 minute match target
+
+**Deliverable:** difficulty ladder that feels different and fun.
+
+## Milestone 4 (Days 11–12): Tournament + Presentation
+- Add simple tournament bracket/progression
+- Add menu screens and readable retro UI text
+- Add placeholder chiptune/SFX mix
+
+**Deliverable:** prototype with exhibition + tournament modes.
+
+## Milestone 5 (Days 13–14): Stabilize
+- Bug fixes and feel polish
+- Performance/readability pass
+- Final scope trim if needed
+
+**Deliverable:** stable, fun prototype ready for your next iteration.
+
+---
+
+# Immediate Next Actions (Do These First)
+1. Install Godot and create the base project.
+2. Implement player movement + ball spawn in one scene.
+3. Add one hit button and prove rally loop before adding full shot complexity.
+4. Add scoring only after rallies feel good.
+
+If you want, next I can generate a **Godot folder structure + starter scripts** for `Player`, `Ball`, `MatchManager`, and `AIController` so you can begin coding right away.
