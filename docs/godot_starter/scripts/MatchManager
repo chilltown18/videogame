@@ -1,0 +1,28 @@
+extends Node
+
+@export var ball_path: NodePath
+@export var score_label_path: NodePath
+
+var _ball: Node
+var _score_label: Label
+var _player_points: int = 0
+var _cpu_points: int = 0
+
+func _ready() -> void:
+	_ball = get_node_or_null(ball_path)
+	_score_label = get_node_or_null(score_label_path)
+	if _ball and _ball.has_signal("point_scored"):
+		_ball.connect("point_scored", _on_point_scored)
+	_update_score_ui()
+
+func _on_point_scored(side: String) -> void:
+	if side == "player":
+		_player_points += 1
+	else:
+		_cpu_points += 1
+	_update_score_ui()
+
+func _update_score_ui() -> void:
+	if _score_label == null:
+		return
+	_score_label.text = "PLAYER %d : %d CPU" % [_player_points, _cpu_points]
